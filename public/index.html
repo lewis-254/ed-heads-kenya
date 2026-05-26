@@ -787,11 +787,40 @@
       line-height: 1.6;
     }
 
-    /* Form success state */
+    /* Form checking / success states */
+    .form-checking,
     .form-success {
       text-align: center;
-      padding: 48px 24px;
+      padding: 56px 24px;
     }
+
+    /* Checking state */
+    .form-checking .checking-spinner {
+      width: 52px;
+      height: 52px;
+      border: 4px solid rgba(49,211,198,0.2);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-checking p {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--white);
+      margin: 0 0 10px;
+      line-height: 1.45;
+    }
+    .form-checking .checking-sub {
+      font-size: 14px;
+      font-family: var(--font-body);
+      color: var(--slate);
+      font-weight: 400;
+    }
+
+    /* Success state */
     .form-success .success-icon { font-size: 56px; margin-bottom: 20px; }
     .form-success h3 {
       font-family: var(--font-display);
@@ -1494,9 +1523,34 @@
 
   if (statEls.length) statsObserver.observe(statEls[0].closest('.stats-row') || statEls[0]);
 
-  /* 5 — Form submit → /api/register (Resend + Google Forms backup) */
+  /* 5 — Form submit → checking state → /api/register → success */
   var form    = document.getElementById('registration-form-el');
   var wrapper = document.getElementById('form-wrapper');
+
+  function showChecking() {
+    wrapper.innerHTML = [
+      '<div class="form-checking">',
+      '  <div class="checking-spinner"></div>',
+      '  <p>Checking for remaining slots<br>and reserving your spot…</p>',
+      '  <span class="checking-sub">This will only take a moment.</span>',
+      '</div>'
+    ].join('');
+    wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function showSuccess() {
+    wrapper.innerHTML = [
+      '<div class="form-success">',
+      '  <div class="success-icon">✅</div>',
+      '  <h3>You\'re registered. 🎉</h3>',
+      '  <p>Check your email — a confirmation is on its way. We look forward to seeing you at the webinar.</p>',
+      '  <p class="success-note">',
+      '    Didn\'t receive it? Check your spam folder or WhatsApp ',
+      '    <a href="https://wa.me/[number]">[number]</a>.',
+      '  </p>',
+      '</div>'
+    ].join('');
+  }
 
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -1507,10 +1561,6 @@
         return;
       }
 
-      var btn = document.getElementById('submit-btn');
-      btn.disabled = true;
-      btn.textContent = 'Reserving your seat…';
-
       var data = {
         first_name:  form.querySelector('[name="first_name"]').value.trim(),
         last_name:   form.querySelector('[name="last_name"]').value.trim(),
@@ -1520,37 +1570,30 @@
         phone:       form.querySelector('[name="phone"]').value.trim(),
       };
 
-      fetch('/api/register', {
+      /* Show checking state immediately */
+      showChecking();
+
+      var apiCall = fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (json) {
-        if (json.success) {
-          wrapper.innerHTML = [
-            '<div class="form-success">',
-            '  <div class="success-icon">✅</div>',
-            '  <h3>You\'re registered. 🎉</h3>',
-            '  <p>Check your email — a confirmation is on its way. We look forward to seeing you at the webinar.</p>',
-            '  <p class="success-note">',
-            '    Didn\'t receive it? Check your spam folder or WhatsApp ',
-            '    <a href="https://wa.me/[number]">[number]</a>.',
-            '  </p>',
-            '</div>'
-          ].join('');
-          wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-          btn.disabled = false;
-          btn.textContent = 'Reserve My Seat — It\'s Free →';
-          alert('Something went wrong. Please try again or email kenya@ed-heads.co.uk');
-        }
-      })
-      .catch(function () {
-        btn.disabled = false;
-        btn.textContent = 'Reserve My Seat — It\'s Free →';
-        alert('Something went wrong. Please try again or email kenya@ed-heads.co.uk');
-      });
+      }).then(function (r) { return r.json(); });
+
+      var minWait = new Promise(function (resolve) { setTimeout(resolve, 3500); });
+
+      /* Wait for both the API and the minimum display time */
+      Promise.all([apiCall, minWait])
+        .then(function (results) {
+          var json = results[0];
+          if (json && json.success) {
+            showSuccess();
+          } else {
+            wrapper.innerHTML = '<div class="form-success"><p style="color:rgba(255,255,255,0.7);">Something went wrong — please email <a href="mailto:kenya@ed-heads.co.uk" style="color:#31D3C6;">kenya@ed-heads.co.uk</a> to confirm your spot.</p></div>';
+          }
+        })
+        .catch(function () {
+          wrapper.innerHTML = '<div class="form-success"><p style="color:rgba(255,255,255,0.7);">Something went wrong — please email <a href="mailto:kenya@ed-heads.co.uk" style="color:#31D3C6;">kenya@ed-heads.co.uk</a> to confirm your spot.</p></div>';
+        });
     });
   }
 
