@@ -1331,12 +1331,7 @@
     </p>
 
     <div class="form-wrap" id="form-wrapper" data-aos="fade-up" data-aos-delay="200">
-      <!-- Form action: connect to GHL webhook, Mailchimp, or email provider of choice -->
-      <form id="registration-form-el" action="#" method="POST" novalidate>
-
-        <!-- Hidden tracking fields -->
-        <input type="hidden" name="source" value="school-webinar-lp">
-        <input type="hidden" name="webinar_date" value="Thursday, 4th June 2026">
+      <form id="registration-form-el" novalidate>
 
         <div class="form-row">
           <div class="form-group">
@@ -1361,11 +1356,11 @@
           <label for="role">Your role</label>
           <select id="role" name="role" required>
             <option value="" disabled selected>Select your role…</option>
-            <option value="principal">Principal</option>
-            <option value="dos">Director of Studies</option>
-            <option value="owner">School Owner</option>
-            <option value="hod">Head of Department</option>
-            <option value="other">Other</option>
+            <option value="Principal">Principal</option>
+            <option value="Director of Studies">Director of Studies</option>
+            <option value="School Owner">School Owner</option>
+            <option value="Head of Department">Head of Department</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
@@ -1385,7 +1380,7 @@
         </div>
 
         <div class="form-submit">
-          <button type="submit" class="btn btn-primary btn--full">
+          <button type="submit" id="submit-btn" class="btn btn-primary btn--full">
             Reserve My Seat — It's Free →
           </button>
         </div>
@@ -1499,7 +1494,7 @@
 
   if (statEls.length) statsObserver.observe(statEls[0].closest('.stats-row') || statEls[0]);
 
-  /* 5 — Form submit → success state */
+  /* 5 — Form submit → /api/register (Resend + Google Forms backup) */
   var form    = document.getElementById('registration-form-el');
   var wrapper = document.getElementById('form-wrapper');
 
@@ -1507,27 +1502,55 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      /* HTML5 validation */
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
-      /* Swap to success state */
-      wrapper.innerHTML = [
-        '<div class="form-success">',
-        '  <div class="success-icon">✅</div>',
-        '  <h3>You\'re registered. 🎉</h3>',
-        '  <p>Check your email — a confirmation is on its way. We look forward to seeing you at the webinar.</p>',
-        '  <p class="success-note">',
-        '    Didn\'t receive it? Check your spam folder or WhatsApp ',
-        '    <a href="https://wa.me/[number]">[number]</a>.',
-        '  </p>',
-        '</div>'
-      ].join('');
+      var btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Reserving your seat…';
 
-      /* Scroll to confirmation */
-      wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var data = {
+        first_name:  form.querySelector('[name="first_name"]').value.trim(),
+        last_name:   form.querySelector('[name="last_name"]').value.trim(),
+        school_name: form.querySelector('[name="school_name"]').value.trim(),
+        role:        form.querySelector('[name="role"]').value,
+        email:       form.querySelector('[name="email"]').value.trim(),
+        phone:       form.querySelector('[name="phone"]').value.trim(),
+      };
+
+      fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (json) {
+        if (json.success) {
+          wrapper.innerHTML = [
+            '<div class="form-success">',
+            '  <div class="success-icon">✅</div>',
+            '  <h3>You\'re registered. 🎉</h3>',
+            '  <p>Check your email — a confirmation is on its way. We look forward to seeing you at the webinar.</p>',
+            '  <p class="success-note">',
+            '    Didn\'t receive it? Check your spam folder or WhatsApp ',
+            '    <a href="https://wa.me/[number]">[number]</a>.',
+            '  </p>',
+            '</div>'
+          ].join('');
+          wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Reserve My Seat — It\'s Free →';
+          alert('Something went wrong. Please try again or email kenya@ed-heads.co.uk');
+        }
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Reserve My Seat — It\'s Free →';
+        alert('Something went wrong. Please try again or email kenya@ed-heads.co.uk');
+      });
     });
   }
 
