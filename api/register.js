@@ -119,7 +119,7 @@ function confirmationEmail({ first_name }) {
             </p>
             <p style="font-size:15px;color:#6B7A99;line-height:1.7;margin:0;">
               Questions in the meantime?<br>
-              WhatsApp: <a href="https://wa.me/[number]" style="color:#31D3C6;text-decoration:none;">[number]</a>&nbsp;·&nbsp;
+              WhatsApp: <a href="https://wa.me/254742850588" style="color:#31D3C6;text-decoration:none;">+254 742 850 588</a>&nbsp;·&nbsp;
               Email: <a href="mailto:kenya@ed-heads.co.uk" style="color:#31D3C6;text-decoration:none;">kenya@ed-heads.co.uk</a>
             </p>
           </td>
