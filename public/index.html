@@ -1602,7 +1602,7 @@
         .then(function (results) {
           var json = results[0];
           if (json && json.success) {
-            showSuccess();
+            window.location.href = '/confirm.html';
           } else {
             wrapper.innerHTML = '<div class="form-success"><p style="color:rgba(255,255,255,0.7);">Something went wrong — please email <a href="mailto:kenya@ed-heads.co.uk" style="color:#31D3C6;">kenya@ed-heads.co.uk</a> to confirm your spot.</p></div>';
           }
