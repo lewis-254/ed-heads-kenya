@@ -185,7 +185,23 @@ function notificationEmail({ first_name, last_name, school_name, role, email, ph
 
             <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #F0F4FF;">
               <tr>
-                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#6B7A99;width:100px;">Email</td>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#6B7A99;width:110px;">First Name</td>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#0F1259;">${first_name}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#6B7A99;">Last Name</td>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#0F1259;">${last_name}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#6B7A99;">School</td>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#0F1259;">${school_name}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#6B7A99;">Role</td>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#0F1259;">${role}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#6B7A99;">Email</td>
                 <td style="padding:12px 0;border-bottom:1px solid #F0F4FF;font-size:13px;color:#0F1259;">
                   <a href="mailto:${email}" style="color:#31D3C6;text-decoration:none;">${email}</a>
                 </td>
