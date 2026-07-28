@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    POST-PAYMENT ONBOARDING PAGE
+    Access control: JS redirects to index.html if ?ref=payment-complete is absent.
+    This is a soft gate only, not cryptographic security.
+
+    PLACEHOLDERS: # 254742850588 1023751030324205
+    {{GTM_ID}} 
+  -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1023751030324205');fbq('track','Purchase',{value:2000,currency:'KES'});
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1023751030324205&ev=Purchase&noscript=1"/></noscript>
+
+  <!-- Soft gate, redirect if not coming from payment -->
+  <script>
+  (function(){
+    if(window.location.search.indexOf('ref=payment-complete') === -1){
+      window.location.href = 'index.html';
+    }
+  })();
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Welcome to Ed-Heads Kenya  | You're In</title>
+  <meta name="description" content="You've subscribed to Ed-Heads Kenya. Here's everything you need to get started in the next 5 minutes.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Minimal header -->
+<header style="background:var(--navy);padding:16px 0">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.png" alt="Ed-Heads" width="100" height="33"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+      <span class="nav-logo-text" style="display:none">ED-HEADS</span>
+      <span class="nav-logo-kenya">(Kenya)</span>
+    </a>
+  </div>
+</header>
+
+<!-- WELCOME HERO -->
+<section class="welcome-hero">
+  <div class="container">
+    <div class="welcome-check">✓</div>
+    <span class="badge badge-teal" style="margin-bottom:16px">YOU'RE AN EARLY ADOPTER</span>
+    <h1 class="text-white" style="margin:16px 0 24px">
+      You're in. Welcome to Ed-Heads Kenya.
+    </h1>
+    <p class="lead max-580" style="color:rgba(255,255,255,0.8);margin:0 auto 20px">
+      Your child's login details are on their way to your inbox. They will arrive within one hour.
+    </p>
+    <p style="color:rgba(255,255,255,0.55);font-size:14px">
+      Check your spam folder if they don't appear within 10 minutes. WhatsApp us at
+      <a href="https://wa.me/254742850588" style="color:var(--teal)">254742850588</a>
+      if you need anything.
+    </p>
+  </div>
+</section>
+
+<!-- THE PROMISE -->
+<section class="section bg-white" style="padding:80px 0">
+  <div class="container max-680">
+    <div class="text-center">
+      <span class="section-label">What You've Just Given Your Child</span>
+      <h2>This is what changes from today.</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="grid-3 animate-group" style="margin-top:48px;text-align:center">
+      <div>
+        <div style="font-size:40px;margin-bottom:12px">📚</div>
+        <h4 style="color:var(--navy);margin-bottom:8px">24/7 Practice</h4>
+        <p style="color:var(--text-light);font-size:14px;line-height:1.6">
+          Over 10,000 curriculum-aligned questions. Available whenever your child sits down to study.
+        </p>
+      </div>
+      <div>
+        <div style="font-size:40px;margin-bottom:12px">🤖</div>
+        <h4 style="color:var(--navy);margin-bottom:8px">Coach Ed</h4>
+        <p style="color:var(--text-light);font-size:14px;line-height:1.6">
+          AI coaching that explains every wrong answer step by step. Available at midnight if they need it.
+        </p>
+      </div>
+      <div>
+        <div style="font-size:40px;margin-bottom:12px">📧</div>
+        <h4 style="color:var(--navy);margin-bottom:8px">Friday Report</h4>
+        <p style="color:var(--text-light);font-size:14px;line-height:1.6">
+          Your weekly progress report arrives every Friday morning. You'll know before you've finished
+          your coffee.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5-STEP GETTING STARTED GUIDE -->
+<section class="section bg-off-white" style="padding:80px 0">
+  <div class="container">
+    <div class="text-center max-680">
+      <span class="section-label">Getting Started</span>
+      <h2>Five steps to your child's first session.</h2>
+      <div class="section-divider"></div>
+      <p class="lead" style="margin-top:24px">
+        Everything below should take less than 10 minutes. By the end, your child will have
+        completed their first session and you will receive your first Friday report this week.
+      </p>
+    </div>
+
+    <div class="welcome-steps animate-group" style="max-width:800px;margin:48px auto 0">
+      <div class="welcome-step">
+        <div class="welcome-step-num">1</div>
+        <div>
+          <h4>Check your email</h4>
+          <p>Your child's login details, username and password, are being sent to the email address
+          you used when subscribing. They will arrive within one hour. Check your spam folder if you
+          do not see them. The subject line will read: "Your Ed-Heads login details."</p>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">2</div>
+        <div>
+          <h4>Log in on any device</h4>
+          <p>Ed-Heads works in any web browser. Open the browser on your child's phone, tablet, or
+          laptop and go to the Ed-Heads website. Enter the username and password from the email.
+          No app download is required.</p>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">3</div>
+        <div>
+          <h4>Watch the 3-minute onboarding video</h4>
+          <p>The platform will prompt your child to watch a short onboarding video on their first
+          login. It shows them how to navigate the subjects, how Coach Ed works, and how to track
+          their own progress. It takes 3 minutes and significantly improves first-week engagement.</p>
+          <!-- Onboarding video embed: replace # before launch -->
+          <div style="margin-top:16px;border-radius:var(--radius-md);overflow:hidden;background:var(--navy);padding:32px;text-align:center">
+            <p style="color:rgba(255,255,255,0.5);font-size:13px;font-style:italic">
+              Onboarding video will be embedded here.<br>
+              Placeholder: <code style="color:var(--teal)">#</code>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">4</div>
+        <div>
+          <h4>Set a daily study time</h4>
+          <p>Ed-Heads works best with consistency. We recommend agreeing with your child on a
+          specific time each day, 10–15 minutes minimum. Before dinner, after school, or right
+          after breakfast. The habit matters more than the duration. The platform will save their
+          progress and pick up exactly where they left off.</p>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">5</div>
+        <div>
+          <h4>Expect your first Friday report</h4>
+          <p>On Friday morning, your weekly progress report will arrive by email. It will show you
+          exactly what your child practised this week, how accurately they performed, and whether
+          they are on an improving trajectory. You do not need to log in or check anything manually.
+          It will just arrive.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EARLY ADOPTER BENEFITS -->
+<section class="section bg-navy" style="padding:60px 0">
+  <div class="container max-680">
+    <div class="early-adopter-benefits">
+      <span class="badge badge-amber" style="margin-bottom:16px">Your Early Adopter Benefits</span>
+      <h3 class="text-white" style="margin-bottom:20px">What you've locked in, permanently.</h3>
+      <ul class="check-list light">
+        <li>KES 2,000/month, locked in for as long as you remain subscribed</li>
+        <li>Your rate never rises, even when the listed price returns to KES 3,500</li>
+        <li>First access to new subjects and features as they are added to the platform</li>
+        <li>Priority support via the Kenya WhatsApp line</li>
+        <li>Access to the parent community as it launches in Kenya</li>
+      </ul>
+      <p style="color:rgba(255,255,255,0.5);font-size:13px;margin-top:20px;font-style:italic">
+        Early adopter status is tied to your subscription remaining continuously active.
+        If you cancel and resubscribe, the new subscription will be at the then-current listed rate.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="section bg-white" style="padding:60px 0;text-align:center">
+  <div class="container max-480">
+    <h3 style="color:var(--navy);margin-bottom:16px">We're here if you need anything.</h3>
+    <p style="color:var(--text-light);font-size:15px;line-height:1.7;margin-bottom:32px">
+      The Kenya team is available Monday–Saturday, 8am–8pm EAT. WhatsApp is the fastest way to
+      reach us, we typically respond within the hour.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center">
+      <a href="https://wa.me/254742850588" class="btn-primary" style="font-size:16px;width:100%;max-width:320px">
+        💬 WhatsApp 254742850588 →
+      </a>
+      <a href="mailto:kenya@ed-heads.co.ke" class="btn-secondary" style="font-size:15px;width:100%;max-width:320px">
+        ✉ kenya@ed-heads.co.ke
+      </a>
+    </div>
+    <p style="color:rgba(0,0,0,0.3);font-size:12px;margin-top:24px">
+      <a href="index.html" style="color:var(--teal)">← Return to ed-heads.co.ke</a>
+    </p>
+  </div>
+</section>
+
+<!-- Minimal footer -->
+<footer style="background:var(--navy-dark);padding:20px 0;text-align:center">
+  <div class="container">
+    <p style="font-size:12px;color:rgba(255,255,255,0.35)">
+      © 2026 Ed-Heads Ltd · Distributed in Kenya by Social Funnel · ed-heads.co.ke
+    </p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
